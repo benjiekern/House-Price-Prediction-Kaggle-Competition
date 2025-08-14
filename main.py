@@ -1,16 +1,21 @@
-# This is a sample Python script.
+import pandas as pd
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+train = pd.read_csv('data/train.csv')
+test = pd.read_csv('data/test.csv')
 
+train_index = ~train.duplicated()
+train = train.loc[train_index]
+y_train = train['SalePrice']
+X_train = train.drop('SalePrice', axis=1)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+fill_values = {}
 
+for col in X_train.columns:
+    if X_train[col].dtype == 'object':
+        fill_values[col] = X_train[col].mode()[0]
+    else:
+        fill_values[col] = X_train[col].median()
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+X_train = X_train.fillna(fill_values)
+X_test = test.fillna(fill_values)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
