@@ -1,4 +1,5 @@
 import numpy as np
+import os
 import pandas as pd
 from scipy.stats import randint, uniform
 from sklearn.compose import ColumnTransformer
@@ -88,9 +89,15 @@ print("Best RMSE:", -random_search.best_score_)
 y_pred_log = random_search.predict(test)
 y_pred = np.expm1(y_pred_log)
 
-# Create and export submission for Kaggle competition
+# Create submission for Kaggle competition
 submission = pd.DataFrame({
     'Id': test_ids,
     'SalePrice': y_pred
 })
-submission.to_csv('submission.csv', index=False)
+
+# Create the results directory if it doesn't exist
+if not os.path.exists('../results'):
+    os.makedirs('../results')
+
+# Export submission
+submission.to_csv('../results/submission.csv', index=False)
