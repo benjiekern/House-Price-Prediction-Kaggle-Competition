@@ -14,8 +14,13 @@ git
 # Simplified Instructions
 1. Clone repository: `git clone https://github.com/benjiekern/House-Price-Prediction-Kaggle-Competition`
 2. Navigate to the project directory and run the setup script to install dependencies
-  
+
    (Windows): `python setup.py`
+   
    (Linux/MacOS): `python3 setup.py`
 
-3.Then, simply run main.py through an IDE of your choosing.
+
+4. Then, simply run main.py through an IDE of your choosing.
+
+  
+  
